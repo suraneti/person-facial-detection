@@ -44,3 +44,6 @@ ckpt/*
 
 #pytest cache
 .cache/
+
+#Virtualenv
+env/

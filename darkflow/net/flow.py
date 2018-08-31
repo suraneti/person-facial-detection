@@ -87,7 +87,7 @@ def return_predict(self, im):
     boxesInfo = list()
     for box in boxes:
         tmpBox = self.framework.process_box(box, h, w, threshold)
-        if tmpBox is None:
+        if tmpBox is None or tmpBox[4] != 'person':
             continue
         boxesInfo.append({
             "label": tmpBox[4],
