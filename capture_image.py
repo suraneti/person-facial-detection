@@ -1,4 +1,5 @@
 from aws_index_face import upload_index_faces
+
 import argparse
 import cv2
 import numpy as np
@@ -9,18 +10,19 @@ parser.add_argument("-n", "--name", required=True, help="Name of saving image", 
 parser.add_argument("-u", "--upload", required=False, help="Upload to S3", type=bool, default=False)
 args = vars(parser.parse_args())
 
-# Camera
-camera = cv2.VideoCapture(1)
+# Camera initialization
+camera = cv2.VideoCapture(0)
 camera.set(3, 800)
 camera.set(4, 800)
 
-# Caffe net
-caffe_net = cv2.dnn.readNetFromCaffe('deploy.prototxt.txt', 'res10_300x300_ssd_iter_140000.caffemodel')
+# Caffe network initialization
+caffe_net = cv2.dnn.readNetFromCaffe('bin/deploy.prototxt.txt', 'bin/res10_300x300_ssd_iter_140000.caffemodel')
 
 def capture_image():
+    """Capture an image to save in local and upload to S3
+    """
 
     printed = True
-
     while True:
         _, frame = camera.read()
 
@@ -32,7 +34,6 @@ def capture_image():
         caffe_net.setInput(blob)
         detections = caffe_net.forward()
 
-        # loop over the detections
         faces_number = 1
         for i in range(0, detections.shape[2]):
             # extract the confidence (i.e., probability) associated with the

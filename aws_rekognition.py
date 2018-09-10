@@ -1,5 +1,3 @@
-from cloudwatch import CloudWatch
-
 import boto3
 import cv2
 
@@ -9,8 +7,10 @@ DEBUG = False
 # Enable cloundwatch will log every event
 ENABLE_CLOUDWATCH = True
 
-# Cloudwatch
-cloudwatch = CloudWatch()
+# Cloudwatch initialization
+if ENABLE_CLOUDWATCH:
+    from cloudwatch import CloudWatch
+    cloudwatch = CloudWatch()
 
 
 class Rekognition(object):
@@ -54,6 +54,7 @@ class Rekognition(object):
                         'key_name': key_name
                     },
                 )
+
         except Exception as err:
             print(err)
 

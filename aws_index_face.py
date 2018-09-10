@@ -4,6 +4,9 @@ source_img = 'Nut.jpg'
 client = boto3.client('rekognition')
 
 def upload_index_faces(source_img):
+    """Upload image to S3 then create faces index
+    """
+
     s3 = boto3.client('s3')
     bucket = 'cto-faces-index'
     file_name = source_img

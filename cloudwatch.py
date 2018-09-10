@@ -24,12 +24,12 @@ class CloudWatch(object):
         """
 
         payload = { 
-                    'group': group,
-                    'channel': channel,
-                    'level': level,
-                    'message': message,
-                    'context': context
-                    }
+            'group': group,
+            'channel': channel,
+            'level': level,
+            'message': message,
+            'context': context
+        }
 
         resp = requests.post('http://13.251.54.116:3228/', headers=self.headers, json=payload)
 
